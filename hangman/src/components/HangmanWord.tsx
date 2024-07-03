@@ -1,7 +1,12 @@
-const word = "test";
-const guessedLetters = ['t', 'e', 'b']
+type HangmanWordProps = {
+  guessedLetters: string[];
+  wordToGuess: string;
+};
 
-const HangmanWord = () => {
+const HangmanWord = ({
+  guessedLetters = [],
+  wordToGuess = "",
+}: HangmanWordProps) => {
   return (
     <div
       style={{
@@ -13,9 +18,22 @@ const HangmanWord = () => {
         fontFamily: "monospace",
       }}
     >
-      {word.split("").map((letter, index) => (
-        <span key={index} style={{ borderBottom: ".1rem solid black" }}>
-          <span style={{visibility: guessedLetters.includes(letter) ? "visible" : "hidden"}}>{letter}</span>
+      {wordToGuess.split("").map((letter, index) => (
+        <span
+          key={index}
+          style={{
+            borderBottom: letter !== " " ? ".1rem solid black" : "none",
+          }}
+        >
+          <span
+            style={{
+              visibility: guessedLetters.includes(letter.toLowerCase())
+                ? "visible"
+                : "hidden",
+            }}
+          >
+            {letter}
+          </span>
         </span>
       ))}
     </div>
